@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <link href="styles/main.css" rel="stylesheet" />
+
+        <script src="cordova.js"></script>
+        <script src="kendo/js/jquery.min.js"></script>
+        <script src="kendo/js/kendo.mobile.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+        <script type="text/javascript" charset="utf-8" src="Plugins/com.phonegap.plugins.sqlite-0.0.4/www/SQLitePlugin.js"></script>
+
+        <script src="scripts/SQLiteRepository.js"></script>
+        <script src="scripts/Main.js"></script>
+
+        <style>
+            .car-item>h3
+            {
+                display: inline-block; 
+                float: left;
+            }
+            .car-item>h4
+            {
+                display: inline-block; 
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="home" data-role="view" data-title="Home" data-layout="main-layout"  data-show="app.cars.init">
+            <ul id="all-cars" data-role="listview" data-bind="source: cars" data-style="inset" 
+                data-template="car-template"></ul>
+        </div>
+        <div id="about" data-role="view" data-title="About" data-layout="main-layout"></div>
+        <div id="contacts" data-role="view" data-title="Contacts" data-layout="main-layout"></div>
+        <div data-role="layout" data-id="main-layout">
+            <div data-role="header">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            <div data-role="footer">
+                <div data-role="tabstrip">
+                    <a data-icon="home" href="#home">Home</a>
+                    <a data-icon="about" href="#about">About</a>
+                    <a data-icon="contacts" href="#contacts">Contacts</a>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-kendo-tmpl"  id="car-template">
+            <li class="car-item" #if (rentOption) {
+            #style="background:green"#}
+                else {
+            #style="background:red"#}#>
+                <h3>#: model #</h3>
+                <h4>#: vendor #</h4>
+            </li>
+        </script>
+    </body>
+</html>
