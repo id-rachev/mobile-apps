@@ -83,9 +83,3 @@ var sqlite = (function() {
         deleteCar:app.deleteRecord
     }
 }());
-/*
-Available cars for rent
-Car details and rent option
-Rented cars with return date
-Home/About/Contacts view
-*/
