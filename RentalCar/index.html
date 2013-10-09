@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Rental Car</title>
         <meta charset="utf-8" />
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
@@ -16,15 +16,10 @@
         <script src="scripts/Main.js"></script>
 
         <style>
-            .car-item>h3
-            {
-                display: inline-block; 
-                float: left;
-            }
             .car-item>h4
             {
                 display: inline-block; 
-                float: right;
+                float: left;
             }
         </style>
     </head>
@@ -51,11 +46,12 @@
         </div>
         <script type="text/x-kendo-tmpl"  id="car-template">
             <li class="car-item" #if (rentOption) {
-            #style="background:green"#}
+            #style="background:yellow"#}
                 else {
             #style="background:red"#}#>
-                <h3>#: model #</h3>
-                <h4>#: vendor #</h4>
+                <h4>#:vendor# #:model#</h4>
+                <h4>free car: #:rentOption#</h4>
+                <h4>$#:rentPrice#</h4>
             </li>
         </script>
     </body>

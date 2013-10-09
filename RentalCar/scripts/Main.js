@@ -1,24 +1,24 @@
 var app = app || {};
 
 (function(a) {
-    var carFree = {
-        model:"golf",
-        vendor:"voltswagen",
-        rentPrice:1000,
+    var freeCar = {
+        model:"A4",
+        vendor:"Audi",
+        rentPrice:800,
         rentOption:1
     };
     
-    var carRented = {
-        model:"golf",
-        vendor:"voltswagen",
-        rentPrice:1000,
+    var rentedCar = {
+        model:"A4",
+        vendor:"Audi",
+        rentPrice:800,
         rentOption:0
     };
     
-    sqlite.addCar(carFree);
-    sqlite.addCar(carFree);
-    sqlite.addCar(carRented);
-    sqlite.addCar(carRented);
+    sqlite.addCar(freeCar);
+    sqlite.addCar(freeCar);
+    sqlite.addCar(freeCar);
+    sqlite.addCar(rentedCar);
     
     var viewModel = kendo.observable({
         cars:[]
