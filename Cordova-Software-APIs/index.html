@@ -35,6 +35,7 @@ under the License.-->
         <script src="js/libs/kendo.all.min.js"></script>
         <script src="js/app/notifications.js"></script>
         <script src="js/app/device.js"></script>
+        <script src="js/app/capture.js"></script>
         <script src="js/app/connection.js"></script>
         <script src="js/index.js"></script>
         <title>Hello World</title>
@@ -145,7 +146,7 @@ under the License.-->
             </table>
         </div>
         <div id="capture-view" data-id="capture-view" data-role="view" data-layout="api-layout" data-title="Capture API">
-            <a data-role="touch" class="button" data-tap="app.capture.captureImage">Capture Image</a>
+            <a data-role="button" class="button" data-click="app.capture.captureImage">Capture Image</a>
         </div> 
         <div id="connection-view" data-id="connection-view" data-role="view" data-layout="api-layout" data-title="Connection API"
             data-show="app.connectionApi.init" data-hide="app.connectionApi.close">

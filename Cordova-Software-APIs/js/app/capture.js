@@ -1,22 +1,21 @@
 var app = app || {};
 
 (function(a) {
-    
-    function captureSuccess(mediaFiles) {
+    var captureSuccess = function(mediaFiles) {
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             uploadFile(mediaFiles[i]);
         }
     }
     
-    function captureError(error) {
-        var msg = 'An error occurred during capture: ' + error.code;
+    var captureError = function(error) {
+        var msg = 'An error capture: ' + error.code;
         navigator.notification.alert(msg, null, 'Uh oh!');
     }
 
     // A button will call this function
     //
-    function captureImage() {
+    var captureImage = function() {
         // Launch device camera application,
         // allowing user to capture up to 2 images
         navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
@@ -41,7 +40,6 @@ var app = app || {};
     }
     
     a.capture = {
-        captureImage: captureImage() 
+        captureImage: captureImage
     };
-}(app)
-);
+}(app));
