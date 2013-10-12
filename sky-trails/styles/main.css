@@ -143,6 +143,11 @@ body, html {
     color:rgba(0,0,0,0.5);
 }
 
+/* TRAILS STYLES*/
+.trails-image {
+    
+}
+
 /* Weather Icons*/
 .weather-icon {
     width:64px;

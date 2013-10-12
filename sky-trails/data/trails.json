@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "image": "data/images/location_active2x.png",
+        "timeStamp": "10.10.2013-09:45:12",
+        "location": "Sofia",
+        "userId": 1
+    }, {
+        "id": 2,
+        "image": "data/images/search_active2x.png",
+        "timeStamp": "10.10.2013-09:46:03",
+        "location": "Sofia",
+        "userId": 1
+    }, {
+        "id": 3,
+        "image": "data/images/location2x.png",
+        "timeStamp": "10.10.2013-09:32:26",
+        "location": "Sofia",
+        "userId": 2
+    }
+]
