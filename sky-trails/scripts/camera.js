@@ -1,7 +1,7 @@
 (function(global) {
     var isActivated = false;
     var cameraInit,
-    cameraClose,
+    imageSource,
     cameraApp,
     app = global.app = global.app || {};
     
@@ -26,21 +26,19 @@
     
     _cameraApp.prototype = {
         _pictureSource: null,
-    
+        _encodingType: null,
         _destinationType: null,
                 
         run: function() {
             var that = this;
             that._pictureSource = navigator.camera.PictureSourceType;
+            that._encodingType = navigator.camera.EncodingType;
             that._destinationType = navigator.camera.DestinationType;
             id("capturePhotoButton").addEventListener("click", function() {
                 that._capturePhoto.apply(that, arguments);
             });
             id("getPhotoFromLibraryButton").addEventListener("click", function() {
                 that._getPhotoFromLibrary.apply(that, arguments)
-            });
-            id("getPhotoFromAlbumButton").addEventListener("click", function() {
-                that._getPhotoFromAlbum.apply(that, arguments);
             });
         },
     
@@ -53,23 +51,15 @@
             }, function() {
                 that._onFail.apply(that, arguments);
             }, {
-                quality: 50,
-                destinationType: that._destinationType.DATA_URL
+                quality: 60,
+                destinationType: that._destinationType.FILE_URI,
+                encodingType: that._encodingType.JPG
             });
         },
         
         _getPhotoFromLibrary: function() {
             var that = this;
-            // On Android devices, pictureSource.PHOTOLIBRARY and
-            // pictureSource.SAVEDPHOTOALBUM display the same photo album.
             that._getPhoto(that._pictureSource.PHOTOLIBRARY);         
-        },
-    
-        _getPhotoFromAlbum: function() {
-            var that = this;
-            // On Android devices, pictureSource.PHOTOLIBRARY and
-            // pictureSource.SAVEDPHOTOALBUM display the same photo album.
-            that._getPhoto(that._pictureSource.SAVEDPHOTOALBUM)
         },
     
         _getPhoto: function(source) {
@@ -80,9 +70,10 @@
             }, function() {
                 cameraApp._onFail.apply(that, arguments);
             }, {
-                quality: 50,
+                quality: 60,
                 destinationType: cameraApp._destinationType.FILE_URI,
-                sourceType: source
+                sourceType: source,
+                encodingType: that._encodingType.JPG
             });
         },
     
@@ -90,8 +81,9 @@
             var smallImage = document.getElementById('smallImage');
             smallImage.style.display = 'block';
     
-            // Show the captured photo.
-            smallImage.src = "data:image/jpeg;base64," + imageData;
+            // Show the captured photo.            
+            smallImage.src = imageSource = imageData;
+            document.getElementById("image-source").innerText = imageSource;
         },
     
         _onPhotoURISuccess: function(imageURI) {
@@ -99,7 +91,8 @@
             smallImage.style.display = 'block';
          
             // Show the captured photo.
-            smallImage.src = imageURI;
+            smallImage.src = imageSource = imageURI;
+            document.getElementById("image-source").innerText = imageSource;
         },
     
         _onFail: function(message) {
@@ -108,7 +101,6 @@
     };
     
     app.camera = {
-        init: cameraInit,
-        close: cameraClose
+        init: cameraInit
     };
 })(window);

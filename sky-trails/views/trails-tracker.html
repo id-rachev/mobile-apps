@@ -2,11 +2,11 @@
 <div id="tabstrip-trails-tracker" 
      data-role="view"  
      data-title="Trails Tracker" 
-     data-model="app.trailsTracker.viewModel">
+     data-model="app.trailsTracker.viewModel"
+     class="view-content">
 
-    <div class="weather">
-
-        <ul class="forecast-list" 
+    <div class="trails">
+        <ul class="trails-list" 
             data-role="listview" 
             data-bind="source: trailsDataSource" 
             data-template="trails-tracker-template">
@@ -17,19 +17,14 @@
 <!--Trails Tracker template-->
 <script type="text/x-kendo-tmpl" id="trails-tracker-template">
     <div>
-        <div class="position-left">
-            <span class="weather-info date">${timeStamp}</span>
+        <div class="position-left inline">
+            <span class="trails-info date">${timeStamp}</span>
+            <div class="trails-info location">
+                <span>${location}</span>
+            </div>
         </div>
-        <div class="position-right">
-            <span class="weather-info temperature high">${location}</span>
-            <span class="weather-info temperature low">${userId}</span>
+        <div class="position-right inline">
+            <img class="trails-thumb" data-bind="attr: {src: image}">
         </div>
-        <div class="position-center">
-            <img class="trails-image" data-bind="attr: {src: image}">
-        </div>
-    </div>
-    <div class="separator">
-        <div class="dark"></div>
-        <div class="light"></div>
     </div>
 </script>

@@ -39,13 +39,15 @@ body, html {
 }
 
 /* BUTTON STYLES*/
-.buttonArea {
+.action-area {
     text-align: center;
+    margin: 5px 0;
 }
-.login-button {
+.large-button {
     width:85%;
     max-width:300px;
     line-height:1.6em;
+    margin: 5px 0;
 }
 
 /* MAP STYLES*/
@@ -115,57 +117,24 @@ body, html {
     background-repeat:no-repeat;
 }
 
-/* WEATHER STYLES*/
-.weather h1 {
-    color:#fff;
-    font-size: 1.5em;
-    line-height:1.2em;
-    text-shadow: none;
-    padding:0.6em 1em;
-    margin: 0;
-    text-align:center;
-}
-.weather-info {
-    color:#fff;
-    font-size: 1.2em;
-    text-shadow: none;
-    line-height:1.8em;
-    display:inline-block;
-}
-.weather-info.date {
-    margin-top: 7px;
-}
-.weather-info.temperature {
-    margin-left:5px;
-}
-
-.weather-info.temperature.low{
-    color:rgba(0,0,0,0.5);
-}
-
 /* TRAILS STYLES*/
-.trails-image {
-    
+.trails-info {
+    text-shadow: none;
+    line-height:2.2em;
+}
+.trails-info.date {
+}
+.trails-info.location {
+    text-align: center;
 }
 
-/* Weather Icons*/
-.weather-icon {
-    width:64px;
-    height:64px;
-    background-image:url(../styles/images/sprite-weather.png);
-    background-repeat:no-repeat;
-    float: right;
-    position: relative;
-    top: -6px;
-    left: -10px;
+.trails-thumb {
+    width: 100px;
 }
-.weather-icon.sunny { background-position:0px 0px;}
-.weather-icon.cloudy { background-position:0px -64px;}
-.weather-icon.partly-cloudy { background-position:0px -128px;}
-.weather-icon.partly-sunny { background-position:0px -192px;}
-.weather-icon.shower { background-position:0px -256px;}
-.weather-icon.foggy { background-position:0px -320px;}
-.weather-icon.storm { background-position:0px -384px;}
+
+.inline {
+    display: inline-block;
+}
 
 .position-left{
     float:left;
@@ -173,61 +142,10 @@ body, html {
 .position-right {
     float:right;
 }
-.position.center {
+.position-center {
     position:absolute;
     margin:0 auto;
     width:100%;
-}
-
-/* DEVICE SPECIFIC STYLES*/
-#skin-change{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-.km-ios .km-listview-wrapper .km-listinset li{
-    background-color:#fff;   
-    border-color:#ababab;
-}
-.km-ios .km-view .km-content{
-    background-image: none;
-    background: #f0f0f0;
-}
-.km-tablet .km-ios .km-navbar .km-view-title{
-    color:#000;
-    text-shadow: 0 -1px rgba(255,255,255,0.3);
-}
-.km-android .view-content h1 {
-    color:#8a8b8f;
-}
-.km-android .view-content p,
-.km-android .view-content h3{
-    color:#2e5968;
-}
-.km-android .weather-info.temperature.low{
-    color:#2e5968;
-}
-
-.km-ios .km-view .weather {
-    background: #5fb4ed; /* Old browsers */
-    background: -moz-linear-gradient(top, #5fb4ed 0%, #0076c5 74%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5fb4ed), color-stop(74%,#0076c5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* IE10+ */
-    background: linear-gradient(to bottom, #5fb4ed 0%,#0076c5 74%); /* W3C */
-}
-.km-flat .km-view .weather{
-    background:#b0b0b0;
-}
-.km-flat .km-list>li{
-    box-shadow:none;
-}
-
-.km-ios .km-list > li,
-.km-flat .km-list>li {
-    background:none;
-    border:none;
 }
 
 /* Separator Style*/

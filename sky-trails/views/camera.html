@@ -1,15 +1,21 @@
 <!-- Camera -->
-<div class="content" data-role="view" data-show="app.camera.init">
-    <div class="action-area ch50">
-        <button class="button dh" id="capturePhotoButton">Take Photo</button>
-        <button class="button dh" id="getPhotoFromLibraryButton">Select from Photo Library</button>
-        <button class="button dh" id="getPhotoFromAlbumButton">Select from Photo Album</button>
+<div data-role="view" 
+     data-show="app.camera.init"
+     data-title="Take Action!"
+     class="view-content">
+    <div class="action-area">
+        <a data-role="button" class="button large-button" id="capturePhotoButton">Take Photo</a>
+        <a data-role="button" class="button large-button" id="getPhotoFromLibraryButton">Select from Photo Library</a>
     </div>
     <div class="result-area ch50">
-        <div class="results">
-            <div class="desc">Note: Photo Library and Photo Album display the same photo album on Android.</div>
-            <img style="display:none;margin:5px auto; width:120px; height:120px;" id="smallImage" src="" />
+        <div>
+            <p>You can shoot some aerosol trails, post it to Sky Trails database and send it as email to authorities. Let's make them pay attention!</p>
+            <img style="display:none;margin:5px auto; width:300px; " id="smallImage" src="" />
+            <div id="image-source"></div>
         </div>
-        <div class="separator"></div>
+        <div class="separator">
+            <div class="dark"></div>
+            <div class="light"></div>
+        </div>
     </div>
 </div>
