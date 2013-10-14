@@ -6,10 +6,10 @@
      class="view-content">
 
     <div class="trails">
-        <ul class="trails-list" 
+        <ul id="trails-listview" 
             data-role="listview" 
             data-bind="source: trailsDataSource" 
-            data-template="trails-tracker-template">
+            data-template="trailTemplate">
         </ul>
     </div>
 </div>
@@ -25,6 +25,24 @@
         </div>
         <div class="position-right inline">
             <img class="trails-thumb" data-bind="attr: {src: image}">
+        </div>
+    </div>
+</script>
+<script type="text/x-kendo-template" id="trailTemplate">
+    <div data-role="touch">
+        <div>
+            <span data-align="left" class="img-titles">
+                # var date = CreatedAt.toDateString()
+                
+                # <span>#: date #,</span>
+    
+                # var time = CreatedAt.toTimeString().substring(0, 8);
+    
+                # <span>#: time #h</span>
+            </span>
+            <a id="trail-thumb" >
+                <img  data-align="right" id="picture" data-bind="attr:{src: PictureUrl}" width="75" />
+            </a>
         </div>
     </div>
 </script>
