@@ -7,15 +7,17 @@
         <a data-role="button" class="button large-button" id="capturePhotoButton">Take Photo</a>
         <a data-role="button" class="button large-button" id="getPhotoFromLibraryButton">Select from Photo Library</a>
     </div>
-    <div class="result-area ch50">
+    <div class="result-area">
         <div>
             <p>You can shoot some aerosol trails, post it to Sky Trails database and send it as email to authorities. Let's make them pay attention!</p>
             <img style="display:none;margin:5px auto; width:300px; " id="smallImage" src="" />
-            <div id="image-source"></div>
+            <div id="newPicture"></div>
         </div>
         <div class="separator">
             <div class="dark"></div>
             <div class="light"></div>
         </div>
+        
+        <a data-role="button" class="button large-button" data-bind="click: app.camera.addImage">Save Picture To Database</a>
     </div>
 </div>

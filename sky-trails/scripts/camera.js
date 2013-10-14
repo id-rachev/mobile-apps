@@ -3,6 +3,8 @@
     var cameraInit,
     imageSource,
     cameraApp,
+    mimeMap,
+    AppHelper,
     app = global.app = global.app || {};
     
     cameraInit = function() {
@@ -52,7 +54,7 @@
                 that._onFail.apply(that, arguments);
             }, {
                 quality: 60,
-                destinationType: that._destinationType.FILE_URI,
+                destinationType: that._destinationType.DATA_URL,
                 encodingType: that._encodingType.JPG
             });
         },
@@ -71,7 +73,7 @@
                 cameraApp._onFail.apply(that, arguments);
             }, {
                 quality: 60,
-                destinationType: cameraApp._destinationType.FILE_URI,
+                destinationType: cameraApp._destinationType.DATA_URL,
                 sourceType: source,
                 encodingType: that._encodingType.JPG
             });
@@ -83,7 +85,7 @@
     
             // Show the captured photo.            
             smallImage.src = imageSource = imageData;
-            document.getElementById("image-source").innerText = imageSource;
+            document.getElementById("newPicture").innerText = imageSource;
         },
     
         _onPhotoURISuccess: function(imageURI) {
@@ -92,7 +94,7 @@
          
             // Show the captured photo.
             smallImage.src = imageSource = imageURI;
-            document.getElementById("image-source").innerText = imageSource;
+            document.getElementById("newPicture").innerText = imageSource;
         },
     
         _onFail: function(message) {
@@ -100,7 +102,93 @@
         }
     };
     
+    mimeMap = {
+        jpg  : "image/jpeg",
+        jpeg : "image/jpeg",
+        png  : "image/png",
+        gif  : "image/gif"
+    };
+    
+    AppHelper = {
+        resolveImageUrl: function (id) {
+            if (id) {
+                return el.Files.getDownloadUrl(id);
+            }
+            else {
+                return "_";
+            }
+        },
+        getBase64ImageFromInput : function (input, cb) {
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                if (cb)
+                    cb(e.target.result);
+            };
+            reader.readAsDataURL(input);
+        },
+        getImageFileObject: function(input, cb) {
+            var name = input.name;
+            var ext = name.substr(name.lastIndexOf('.') + 1);
+            var mimeType = mimeMap[ext];
+            if (mimeType) {
+                this.getBase64ImageFromInput(input, function(base64) {
+                    var res = {
+                        "Filename"    : name,
+                        "ContentType" : mimeType,              
+                        "base64"      : base64.substr(base64.lastIndexOf('base64,') + 7)
+                    }
+                    cb(null, res);
+                });
+            }
+            else {
+                cb("File type not supported: " + ext);    
+            }
+        }
+    };
+        
+    function addImageToDB() {
+        var addTrailImageModel = {
+            location: function() {
+                var latitude, longitude;
+                
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                
+                function onSuccess(position) {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                };
+                
+                function onError(error) {
+                    alert('code: ' + error.code + '\n' +
+                          'message: ' + error.message + '\n');
+                };
+                
+                return {
+                    location: {
+                        latitude: latitude,
+                        longitude: longitude
+                    }
+                }
+                
+            },
+            imageUrl: imageSource
+        };
+        
+        function saveItem() {
+            $.ajax({
+                type: "POST",
+                url: 'https://api.everlive.com/v1/wWPalgivRBMkPWo1/TrailsPictures',
+                contentType: "application/json",
+                data: JSON.stringify(addTrailImageModel),
+                error: function(error) {
+                    navigator.notification.alert(JSON.stringify(error));
+                }
+            });
+        };
+    };
+    
     app.camera = {
-        init: cameraInit
+        init: cameraInit,
+        addImage: addImageToDB
     };
 })(window);
