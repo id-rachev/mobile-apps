@@ -53,29 +53,24 @@
             }, function() {
                 that._onFail.apply(that, arguments);
             }, {
-                quality: 60,
+                quality: 50,
                 destinationType: that._destinationType.DATA_URL,
-                encodingType: that._encodingType.JPG
+                encodingType: that._encodingType.PNG
             });
         },
         
         _getPhotoFromLibrary: function() {
             var that = this;
-            that._getPhoto(that._pictureSource.PHOTOLIBRARY);         
-        },
-    
-        _getPhoto: function(source) {
-            var that = this;
             // Retrieve image file location from specified source.
             navigator.camera.getPicture(function() {
-                that._onPhotoURISuccess.apply(that, arguments);
+                that._onPhotoDataSuccess.apply(that, arguments);
             }, function() {
                 cameraApp._onFail.apply(that, arguments);
             }, {
-                quality: 60,
-                destinationType: cameraApp._destinationType.DATA_URL,
-                sourceType: source,
-                encodingType: that._encodingType.JPG
+                quality: 50,
+                destinationType: cameraApp._destinationType.FILE_URI,
+                sourceType: that._pictureSource.PHOTOLIBRARY,
+                encodingType: that._encodingType.JPEG
             });
         },
     
@@ -85,15 +80,6 @@
     
             // Show the captured photo.            
             smallImage.src = imageSource = imageData;
-            document.getElementById("newPicture").innerText = imageSource;
-        },
-    
-        _onPhotoURISuccess: function(imageURI) {
-            var smallImage = document.getElementById('smallImage');
-            smallImage.style.display = 'block';
-         
-            // Show the captured photo.
-            smallImage.src = imageSource = imageURI;
             document.getElementById("newPicture").innerText = imageSource;
         },
     
@@ -146,9 +132,9 @@
         }
     };
         
-    function addImageToDB() {
-        var addTrailImageModel = {
-            location: function() {
+    var addImageToDB = kendo.observable({
+        addTrailImageModel : {
+            Location: function() {
                 var latitude, longitude;
                 
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -164,17 +150,14 @@
                 };
                 
                 return {
-                    location: {
-                        latitude: latitude,
-                        longitude: longitude
-                    }
+                    Latitude: parseFloat(latitude.replace(',', '.')),
+                    Longitude: parseFloat(longitude.replace(',', '.'))
                 }
-                
             },
-            imageUrl: imageSource
-        };
+            ImageFile: imageSource
+        },
         
-        function saveItem() {
+        saveItem: function() {
             $.ajax({
                 type: "POST",
                 url: 'https://api.everlive.com/v1/wWPalgivRBMkPWo1/TrailsPictures',
@@ -184,11 +167,30 @@
                     navigator.notification.alert(JSON.stringify(error));
                 }
             });
-        };
+        }
+    });
+    
+    var saveImageToDB = function() {
+        var uploadUrl = Everlive.$.Files.getUploadUrl();
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = "everlive.jpeg";
+        options.mimeType = "image/jpeg";
+        options.headers = Everlive.$.buildAuthHeader();
+         
+        var ft = new FileTransfer();
+        ft.upload(imageSource, uploadUrl, 
+                  function (r) {
+                      alert('success')
+                  }, 
+                  function(error) {
+                      alert("An error has occurred: Code = " + error.code);
+                  }, options);
     };
     
     app.camera = {
         init: cameraInit,
-        addImage: addImageToDB
+        addImage: addImageToDB,
+        saveImage: saveImageToDB
     };
 })(window);
